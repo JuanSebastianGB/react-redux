@@ -1,0 +1,25 @@
+name: Build and deploy React-redux basic implementation
+on:
+  push:
+    branches:
+      - 'master'
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check action
+        uses: actions/checkout@master
+        with:
+          persist-credentials: false
+      - name: Install and build
+        run: |
+          npm install
+          npm run build
+      - name: Run Tests
+        run: npm run ci:test
+      - name: Make deploy
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: build
