@@ -21,7 +21,6 @@ const Counter = () => {
         <button onClick={() => dispatch(substract5())}>-5</button>
       </nav>
       <h3>{counter}</h3>
-      <hr />
     </div>
   );
 };
