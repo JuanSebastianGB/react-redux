@@ -1,4 +1,4 @@
-name: Build and deploy React-redux basic implementation
+name: Githbu Pages Deply
 on:
   push:
     branches:
@@ -6,20 +6,21 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [15.x]
+
     steps:
       - name: Check action
-        uses: actions/checkout@master
-        with:
-          persist-credentials: false
+        uses: actions/checkout@v1
       - name: Install and build
         run: |
           npm install
           npm run build
-      - name: Run Tests
-        run: npm run ci:test
-      - name: Make deploy
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+      - name: Deploy
+        uses JamesIves/github-pages-deploy-action@4.1.1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
           folder: build
+
